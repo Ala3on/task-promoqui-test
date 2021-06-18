@@ -1,24 +1,13 @@
 import React, {useEffect} from 'react';
-import { selectAllFlyers, fetchFlyers, CounterState } from './app/slice/flyers';
+import { selectAllLeaflets, fetchLeaflets, CounterState } from './app/slice/leaflets';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './app/store';
 
+import Leaflets from './components/Leaflets/Leaflets';
+
 function App() {
-  const dispatch = useDispatch();
-  const flyers = useSelector(selectAllFlyers);
-  const status = useSelector((state: RootState) => state.counter.status);
-  console.log(status, 'status');
-
-
- useEffect(() => {
-    dispatch(fetchFlyers());
-  }
-  );
-
   return (
-    <div className="App">
-     {'TEST'}
-    </div>
+    <Leaflets />
   );
 }
 

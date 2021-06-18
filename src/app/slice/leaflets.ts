@@ -3,20 +3,20 @@ import { RootState, AppThunk } from '../store';
 import axios from 'axios';
 
 export interface CounterState {
-  flyers: Object[];
+  leaflets: Object[];
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: CounterState = {
-  flyers: [],
+  leaflets: [],
   status: 'idle',
 };
 
-export const fetchFlyers = createAsyncThunk(
+export const fetchLeaflets = createAsyncThunk(
   'counter/fetchFlyers',
   async () => {
     const response = await axios.get('https://pq-leaflets.herokuapp.com/api/leaflets/filter');
-    console.log(response);
+    console.log(response.data);
     return response.data;
   }
 );
@@ -42,7 +42,7 @@ export const counterSlice = createSlice({
   }, */
 });
 
-export const selectAllFlyers = (state: CounterState) => state.flyers
+export const selectAllLeaflets = (state: CounterState) => state.leaflets
 
 // export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 

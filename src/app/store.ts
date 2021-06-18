@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from './slice/flyers';
+import leafletsReducer from './slice/leaflets';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    leaflets: leafletsReducer,
   },
 });
 
