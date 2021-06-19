@@ -25,11 +25,13 @@ interface Leaflets {
 export interface CounterState {
   leaflets: Leaflets[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  searchText: string;
 }
 
 const initialState: CounterState = {
   leaflets: [],
   status: 'idle',
+  searchText: ''
 };
 
 export const fetchLeaflets = createAsyncThunk(
@@ -47,7 +49,9 @@ export const leafletsSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    
+    onSearchInputChange: (state, action: PayloadAction<string>) => {
+      state.searchText = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -65,8 +69,11 @@ export const leafletsSlice = createSlice({
   },
 });
 
-export const selectAllLeaflets = (state: RootState) => state.leaflets.leaflets
+export const leafletsSelector = (state: RootState) => state.leaflets.leaflets.filter((l) => {
+  if (state.leaflets.searchText.length === 0) return true;
+  return l.name.toLowerCase().includes(state.leaflets.searchText.toLowerCase());
+})
 
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { onSearchInputChange } = leafletsSlice.actions;
 
 export default leafletsSlice.reducer;

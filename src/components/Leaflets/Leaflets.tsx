@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react';
-import { selectAllLeaflets, fetchLeaflets, CounterState } from '../../app/slice/leaflets';
+import { leafletsSelector, fetchLeaflets, CounterState } from '../../app/slice/leaflets';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { RootState } from '../../app/store';
 
-import { LeafletsWrapper } from './LeafletsStyles'
+import { LeafletsWrapper, NoLeaflets } from './LeafletsStyles'
 import Leaflet from './Leaflet/Leaflet';
 import Spinner from '../../UI/Spinner/Spinner';
 
 const Leaflets: React.FC = () => {
     let content;
     const dispatch = useAppDispatch();
-    const leaflets = useAppSelector(selectAllLeaflets);
+    const leaflets = useAppSelector(leafletsSelector);
     const status = useAppSelector((state: RootState) => state.leaflets.status);
+    const searchText = useAppSelector((state: RootState) => state.leaflets.searchText);
     // const status = 'loading'
-    console.log(status, 'status');
+    console.log(searchText, 'searchText');
   
   
     useEffect(() => {
@@ -33,7 +34,7 @@ const Leaflets: React.FC = () => {
             retailer={leaflets.retailer}/>
         ));
     } else if (status === 'succeeded' && leaflets.length === 0) {
-        content = <div>Nessin Volantino Disponibile</div>;
+        content = <NoLeaflets>Nessun volantino disponibile</NoLeaflets>;
     } else if (status === 'failed') {
         content = <div>ERRORE: non è stato possibile caricare la lista dei volanti</div>;
     } 

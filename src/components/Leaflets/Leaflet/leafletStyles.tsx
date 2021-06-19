@@ -11,6 +11,7 @@ interface Leaflet {
 
 export const LeafletContainer = styled.div`
     position: relative;
+    max-width: 400px;
     min-width: 230px;
     min-height: 305px;
     padding: 8px;
@@ -25,7 +26,7 @@ export const LeafletWrapper = styled.div<Leaflet>`
     margin: 0 auto;
     transition: transform .2s, box-shadow .2s;
     box-shadow: 2px 2px 6px #a0a0a0;
-    background-image: url('${props => props.images.xs}');
+    background-image: url('${props => props.images.md}');
     background-color: black;
     background-position: center;
     background-repeat: no-repeat;
