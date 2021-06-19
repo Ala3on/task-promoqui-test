@@ -13,7 +13,9 @@ import {
 const Topbar: React.FC = props => {
     const searchRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
+    const [activeButton, setActiveButton] = useState('');
     const [sortKeys, setSortKeys] = useState([
+        '',
         'priority', 
         'expTimestamp',
         'distance', 
@@ -25,10 +27,12 @@ const Topbar: React.FC = props => {
         dispatch(onSearchInputChange(searchRef.current!.value))
     }
 
-    const onClickHandler = (params: any) => {
+    const onClickHandler = (params: any, activeBtn: string) => {
+        setActiveButton(activeBtn);
         dispatch(fetchLeaflets(params))
     }
-    const onClickSortHandler = () => {
+    const onClickSortHandler = (activeBtn: string) => {
+        setActiveButton(activeBtn);
         const newArr = [...sortKeys];
         newArr.push(newArr.shift()!);
         setSortKeys(newArr);
@@ -46,10 +50,18 @@ const Topbar: React.FC = props => {
             />
 
             <FilterAndSortingButtonWrapper>
-                <FilterAndSortingButton onClick={() => onClickHandler({maxDistance: 6000})}>Più vicini</FilterAndSortingButton>
-                <FilterAndSortingButton onClick={() => onClickHandler({excludeExpired: 1})}>Ancora Validi</FilterAndSortingButton>
-                <FilterAndSortingButton onClick={() => onClickSortHandler()}>Ordina per: {sortKeys[0]} </FilterAndSortingButton>
-                <FilterAndSortingButton onClick={() => onClickHandler({})}>Rimuovi filtri </FilterAndSortingButton>
+                <FilterAndSortingButton 
+                    onClick={() => onClickHandler({maxDistance: 6000}, 'maxDistance')}
+                    activeBtn={activeButton === 'maxDistance'}>Più vicini</FilterAndSortingButton>
+                <FilterAndSortingButton 
+                    onClick={() => onClickHandler({excludeExpired: 1}, 'excludeExpired')}
+                    activeBtn={activeButton === 'excludeExpired'}>Ancora Validi</FilterAndSortingButton>
+                <FilterAndSortingButton 
+                    onClick={() => onClickSortHandler('sort')}
+                    activeBtn={activeButton === 'sort' && sortKeys[0] !== ''}>Ordina per: {sortKeys[0]} </FilterAndSortingButton>
+                <FilterAndSortingButton 
+                    onClick={() => onClickHandler({}, '')}
+                    activeBtn={activeButton === ''}>Nessun Filtro</FilterAndSortingButton>
             </FilterAndSortingButtonWrapper>
         </TopbarContainer>
         

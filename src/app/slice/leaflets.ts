@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../store';
+import { RootState } from '../store';
 import axios from 'axios';
-import { Console } from 'console';
+
 
 interface Leaflets {
       key: string
@@ -29,20 +29,20 @@ function encodeQueryData(params: any) {
   return ret.join('&');
 }
 
-export interface CounterState {
+export interface LeafletsState {
   leaflets: Leaflets[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   searchText: string;
 }
 
-const initialState: CounterState = {
+const initialState: LeafletsState = {
   leaflets: [],
   status: 'idle',
   searchText: ''
 };
 
 export const fetchLeaflets = createAsyncThunk(
-  'counter/fetchFlyers',
+  'leaflets/fetchFlyers',
   async (params: any) => {
     const query=encodeQueryData(params)
     console.log(query, 'QUERY')
@@ -53,7 +53,7 @@ export const fetchLeaflets = createAsyncThunk(
 );
 
 export const leafletsSlice = createSlice({
-  name: 'counter',
+  name: 'leaflets',
   initialState,
   reducers: {
     onSearchInputChange: (state, action: PayloadAction<string>) => {

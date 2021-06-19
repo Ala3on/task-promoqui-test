@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { AppDispatch } from '../../app/store';
+import styled, {css} from 'styled-components';
 
 interface ButtonFilter {
-    onCLick: () => AppDispatch,
+    onCLick?: () => void;
+    activeBtn: boolean;
 }
 
 export const TopbarContainer = styled.div`
@@ -46,10 +46,10 @@ export const FilterAndSortingButtonWrapper = styled.div`
     padding-top: 10px;
 `;
 
-export const FilterAndSortingButton = styled.button`
+export const FilterAndSortingButton = styled.button<ButtonFilter>`
     padding: 8px;
     margin: 0 6px;
-    background-color: #689cc5;
+    background-color: ${props => props.activeBtn ? css`rgb(229, 70, 96)` : css`#689cc5`};
     color: white;
     border: none;
     font-weight: 600;
