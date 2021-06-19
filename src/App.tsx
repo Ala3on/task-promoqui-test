@@ -1,13 +1,20 @@
 import React, {useEffect} from 'react';
-import { selectAllLeaflets, fetchLeaflets, CounterState } from './app/slice/leaflets';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './app/store';
+import styled from 'styled-components';
 
+import Aux from './hoc/Auxilliary';
 import Leaflets from './components/Leaflets/Leaflets';
+import Topbar from './components/Topbar/Topbar';
 
-function App() {
+
+
+
+const App: React.FC = () => {
   return (
-    <Leaflets />
+    <Aux>
+      <Topbar />
+      <Leaflets />
+    </Aux>
+    
   );
 }
 
