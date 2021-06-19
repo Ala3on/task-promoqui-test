@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { leafletsSelector, fetchLeaflets, CounterState } from '../../app/slice/leaflets';
+import { leafletsSelector, fetchLeaflets } from '../../app/slice/leaflets';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { RootState } from '../../app/store';
 
@@ -10,7 +10,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 const Leaflets: React.FC = () => {
     let content;
     const dispatch = useAppDispatch();
-    const leaflets = useAppSelector(leafletsSelector);
+    const leaflets = useAppSelector(leafletsSelector) || [];
     const status = useAppSelector((state: RootState) => state.leaflets.status);
     const searchText = useAppSelector((state: RootState) => state.leaflets.searchText);
     // const status = 'loading'
@@ -18,7 +18,7 @@ const Leaflets: React.FC = () => {
   
   
     useEffect(() => {
-            dispatch(fetchLeaflets());
+            dispatch(fetchLeaflets({}));
         }, []);
     console.log(leaflets, 'FLYERS');
 

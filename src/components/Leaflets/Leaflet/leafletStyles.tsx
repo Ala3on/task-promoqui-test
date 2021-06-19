@@ -34,12 +34,12 @@ export const LeafletWrapper = styled.div<Leaflet>`
     transition: .5s ease;
     backface-visibility: hidden;
 
-&:hover {
-    transform: scale(1.03);
-    opacity: 0.3;
-    box-shadow: 3px 3px 8px 1px #a0a0a0;
-    cursor: pointer;
-}
+    &:hover {
+        transform: scale(1.03);
+        opacity: 0.3;
+        box-shadow: 3px 3px 8px 1px #a0a0a0;
+        cursor: pointer;
+    }
 `;
 
 export const Cover = styled.div`

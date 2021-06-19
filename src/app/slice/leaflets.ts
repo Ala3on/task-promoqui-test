@@ -22,6 +22,13 @@ interface Leaflets {
       }
 }
 
+function encodeQueryData(params: any) {
+  const ret = [];
+  for (let p in params)
+    ret.push('?' + encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
+  return ret.join('&');
+}
+
 export interface CounterState {
   leaflets: Leaflets[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -36,14 +43,14 @@ const initialState: CounterState = {
 
 export const fetchLeaflets = createAsyncThunk(
   'counter/fetchFlyers',
-  async () => {
-    const response = await axios.get('https://pq-leaflets.herokuapp.com/api/leaflets/filter');
-    console.log(response.data);
+  async (params: any) => {
+    const query=encodeQueryData(params)
+    console.log(query, 'QUERY')
+    const url = `https://pq-leaflets.herokuapp.com/api/leaflets/filter${query}`;
+    const response = await axios.get(url);
     return response.data;
   }
 );
-
-console.log(fetchLeaflets.pending);
 
 export const leafletsSlice = createSlice({
   name: 'counter',
@@ -55,7 +62,7 @@ export const leafletsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLeaflets.pending, (state) => {
+      .addCase(fetchLeaflets.pending, (state, action) => {
         state.status = 'loading';
       })
       .addCase(fetchLeaflets.fulfilled, (state, action) => {
@@ -69,7 +76,7 @@ export const leafletsSlice = createSlice({
   },
 });
 
-export const leafletsSelector = (state: RootState) => state.leaflets.leaflets.filter((l) => {
+export const leafletsSelector = (state: RootState) => state.leaflets.leaflets && state.leaflets.leaflets.filter((l) => {
   if (state.leaflets.searchText.length === 0) return true;
   return l.name.toLowerCase().includes(state.leaflets.searchText.toLowerCase());
 })
