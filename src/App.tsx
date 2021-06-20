@@ -1,11 +1,8 @@
-import React, {useEffect} from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 import Aux from './hoc/Auxilliary';
 import Leaflets from './components/Leaflets/Leaflets';
 import Topbar from './components/Topbar/Topbar';
-
-
 
 
 const App: React.FC = () => {

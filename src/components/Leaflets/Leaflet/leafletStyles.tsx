@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 interface Leaflet {
     readonly images: {
         xs: string;
@@ -80,4 +81,17 @@ export const CompanyName = styled.h4`
 export const ExpDate = styled.h5`
     margin: 3px;
     color: #888;
+`;
+export const Distance = styled.div`
+    display: flex;
+    margin: 3px;
+    color: #888;
+    justify-content: center;
+    font-size: 0.8em;
+    align-items: center;
+`;
+export const LocationSvgWrapper = styled.div`
+    width: 24px;
+    height: 24px;
+    transform: scale(0.7, 0.7);
 `;

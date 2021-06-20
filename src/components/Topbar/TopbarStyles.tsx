@@ -38,7 +38,7 @@ export const SearchInput = styled.input`
 
     @media (max-width: 590px) {
         width: 90%;
-  }
+    }
 
 `;
 
@@ -48,7 +48,7 @@ export const FilterAndSortingButtonWrapper = styled.div`
 
 export const FilterAndSortingButton = styled.button<ButtonFilter>`
     padding: 8px;
-    margin: 0 6px;
+    margin: 2px 6px;
     background-color: ${props => props.activeBtn ? css`rgb(229, 70, 96)` : css`#689cc5`};
     color: white;
     border: none;

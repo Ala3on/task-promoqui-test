@@ -1,29 +1,34 @@
 import React from 'react';
+
 import { 
     LeafletWrapper, 
     LeafletContainer, 
     Info, 
     CompanyName, 
-    ExpDate, 
+    Distance, 
+    ExpDate,
     Cover, 
-    OpenLeaflet 
+    OpenLeaflet,
+    LocationSvgWrapper
 } from './leafletStyles';
+import {default as LocationSvg} from '../../../assets/svg/iconPin.svg'
+
 
 interface LeafletInterface {
-    key: string
-    name: string
-    expTimestamp: number
-    id: string
+    key: string;
+    name: string;
+    expTimestamp: number;
+    id: string;
     retailer: {
-        id: string
-        name: string
-        distance: number
-        priority: number
+        id: string;
+        name: string;
+        distance: number;
+        priority: number;
         images: {
-            xs: string
-            sm: string
-            md: string
-            lg: string
+            xs: string;
+            sm: string;
+            md: string;
+            lg: string;
         }
     }
 } 
@@ -49,6 +54,10 @@ const Leaflet: React.FC<LeafletInterface> = props => {
                 <ExpDate>
                     {formatDate(props.expTimestamp)}
                 </ExpDate>
+                <Distance>
+                    <LocationSvgWrapper><img src={LocationSvg} alt='Icon' /></LocationSvgWrapper>
+                    {(props.retailer.distance/1000).toFixed(2)}km 
+                </Distance>
             </Info>
         </LeafletContainer>
         

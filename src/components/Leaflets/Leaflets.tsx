@@ -12,15 +12,10 @@ const Leaflets: React.FC = () => {
     const dispatch = useAppDispatch();
     const leaflets = useAppSelector(leafletsSelector) || [];
     const status = useAppSelector((state: RootState) => state.leaflets.status);
-    const searchText = useAppSelector((state: RootState) => state.leaflets.searchText);
-    // const status = 'loading'
-    console.log(searchText, 'searchText');
-  
   
     useEffect(() => {
-            dispatch(fetchLeaflets({}));
-        }, []);
-    console.log(leaflets, 'FLYERS');
+            dispatch(fetchLeaflets({/* no params */}));
+    }, [dispatch]);
 
     if (status === 'loading') {
         content =  <Spinner />;
@@ -36,7 +31,7 @@ const Leaflets: React.FC = () => {
     } else if (status === 'succeeded' && leaflets.length === 0) {
         content = <NoLeaflets>Nessun volantino disponibile</NoLeaflets>;
     } else if (status === 'failed') {
-        content = <div>ERRORE: non è stato possibile caricare la lista dei volanti</div>;
+        content = <NoLeaflets>ERRORE: non è stato possibile caricare la lista dei volanti</NoLeaflets>;
     } 
 
     return (

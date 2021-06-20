@@ -10,7 +10,7 @@ import {
 } from './TopbarStyles';
 
 
-const Topbar: React.FC = props => {
+const Topbar: React.FC = () => {
     const searchRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
     const [activeButton, setActiveButton] = useState('');
@@ -24,19 +24,19 @@ const Topbar: React.FC = props => {
     ]);
     
     const onSearchInputChangeHandler = () => {
-        dispatch(onSearchInputChange(searchRef.current!.value))
+        dispatch(onSearchInputChange(searchRef.current!.value));
     }
 
     const onClickHandler = (params: any, activeBtn: string) => {
         setActiveButton(activeBtn);
-        dispatch(fetchLeaflets(params))
+        dispatch(fetchLeaflets(params));
     }
     const onClickSortHandler = (activeBtn: string) => {
         setActiveButton(activeBtn);
         const newArr = [...sortKeys];
         newArr.push(newArr.shift()!);
         setSortKeys(newArr);
-        dispatch(fetchLeaflets({sort: newArr[0]}))
+        dispatch(fetchLeaflets({sort: newArr[0]}));
     }
 
     return (
@@ -64,7 +64,6 @@ const Topbar: React.FC = props => {
                     activeBtn={activeButton === ''}>Nessun Filtro</FilterAndSortingButton>
             </FilterAndSortingButtonWrapper>
         </TopbarContainer>
-        
     );
 };
 

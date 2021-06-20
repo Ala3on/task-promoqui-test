@@ -4,28 +4,29 @@ import axios from 'axios';
 
 
 interface Leaflets {
-      key: string
-      id: string
-      name: string
-      expTimestamp: number
+      key: string;
+      id: string;
+      name: string;
+      expTimestamp: number;
       retailer: {
-          id: string
-          name: string
-          distance: number
-          priority: number
+          id: string;
+          name: string;
+          distance: number;
+          priority: number;
           images: {
               xs: string
               sm: string
               md: string
               lg: string
-          }
-      }
+          };
+      };
 }
 
 function encodeQueryData(params: any) {
   const ret = [];
-  for (let p in params)
+  for (let p in params) {
     ret.push('?' + encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
+  }
   return ret.join('&');
 }
 
@@ -44,8 +45,7 @@ const initialState: LeafletsState = {
 export const fetchLeaflets = createAsyncThunk(
   'leaflets/fetchFlyers',
   async (params: any) => {
-    const query=encodeQueryData(params)
-    console.log(query, 'QUERY')
+    const query=encodeQueryData(params);
     const url = `https://pq-leaflets.herokuapp.com/api/leaflets/filter${query}`;
     const response = await axios.get(url);
     return response.data;
@@ -62,7 +62,7 @@ export const leafletsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLeaflets.pending, (state, action) => {
+      .addCase(fetchLeaflets.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchLeaflets.fulfilled, (state, action) => {
@@ -71,7 +71,6 @@ export const leafletsSlice = createSlice({
       })
       .addCase(fetchLeaflets.rejected, (state) => {
         state.status = 'failed';
-        
       });
   },
 });
