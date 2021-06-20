@@ -11,7 +11,7 @@ For run local server you have to following this step:
 
 With yarn
 ```
-yarn install
+yarn add
 
 yarn start
 ```
