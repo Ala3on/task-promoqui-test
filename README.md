@@ -10,14 +10,14 @@ For running successfully the project you have to install:
 For run local server you have to following this step:
 With yarn
 ```
-### yarn install
+yarn install
 
-### yarn start
+yarn start
 ```
 
 With npm
 ```
-### npm install 
+npm install 
 
-### npm start
+npm start
 ```
